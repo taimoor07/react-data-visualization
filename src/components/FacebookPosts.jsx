@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import NivoBarChart from './common/NivoBarChart';
+const Papa = require("papaparse");
+const csvFilePath = '../assets/task1-data.csv'
+// const csv = require('csvtojson')
 
 const useStyles = makeStyles((theme) => ({
     fbPosts: {
@@ -10,6 +13,26 @@ const useStyles = makeStyles((theme) => ({
 
 const FacebookPosts = () => {
     const classes = useStyles();
+    const config = {
+        header: false,
+        dynamicTyping: false,
+    }
+
+    useEffect(() => {
+        // let jsonData = Papa.parse("./assets/task1-data.csv", config);
+        console.log("🚀 ~ file: FacebookPosts.jsx ~ line 24 ~ useEffect ~ Papa", Papa)
+        Papa.parse(csvFilePath, {
+            header: false,
+            dynamicTyping: false,
+            complete: updateData
+        });
+    }, []);
+
+    const updateData = (result) => {
+        console.log("🚀 ~ file: FacebookPosts.jsx ~ line 35 ~ updateData ~ result", result)
+        const data = result.data;
+        console.log(data);
+    }
 
     const data = [
         {

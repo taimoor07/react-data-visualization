@@ -1,5 +1,9 @@
-# Data visualization Reactjs App
+# Data visualization App - Reactjs (CSV into Nivo Charts)
 
+This is a data visualization app which will show csv data on charts.
+I have used papaparse to convert csv data to Json formate, and used Nivo library for charts which is very easy to use and popular library for javascript.
+
+Note: This is simple app I have done this for a software company for test purpose only. And the data is given by them.
 
 ## Steps to run this app
 Follow below 2 steps to run this app after clone it.
