@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import NivoBarChart from './common/NivoBarChart';
+import { formateData } from '../helpers/methods';
 const Papa = require("papaparse");
 const csvFilePath = '../assets/task1-data.csv'
-// const csv = require('csvtojson')
 
 const useStyles = makeStyles((theme) => ({
     fbPosts: {
@@ -13,54 +13,66 @@ const useStyles = makeStyles((theme) => ({
 
 const FacebookPosts = () => {
     const classes = useStyles();
-    const config = {
-        header: false,
-        dynamicTyping: false,
+
+
+    useEffect(() => {
+        var blob = null;
+        var xhr = new XMLHttpRequest();
+        var file = xhr.open("GET", csvFilePath);
+        console.log("🚀 ~ file: FacebookPosts.jsx ~ line 22 ~ useEffect ~ file", file)
+        //  xhr.var myReader = new FileReader();
+        //  myReader.readAsArrayBuffer(blob) 
+        //  myReader.addEventListener("loadend", function (e)
+        //   var myReader = new FileReader();
+
+        // Papa.parse(csvFilePath, {
+        //     delimiter: ",",	// auto-detect
+        //     header: true,
+        //     dynamicTyping: true,
+        //     complete: function (results, file) {
+        //         console.log("Parsing complete:", results, file);
+        //         setJsonData(results.data)
+        //     }
+        // });
+    }, []);
+
+    const [selectedFile, setSelectedFile] = React.useState(null);
+    const [jsonData, setJsonData] = React.useState(null);
+    const [data, setData] = React.useState([]);
+
+    const onFileChange = (e) => {
+        setSelectedFile(e.target.files[0]);
+    }
+
+    const updateChart = (e) => {
+        if (selectedFile) {
+            Papa.parse(selectedFile, {
+                delimiter: ",",	// auto-detect
+                header: true,
+                dynamicTyping: true,
+                complete: function (results, file) {
+                    console.log("Parsing complete ----------------->", results, file);
+                    setJsonData(results.data)
+                }
+            });
+        }
     }
 
     useEffect(() => {
-        // let jsonData = Papa.parse("./assets/task1-data.csv", config);
-        console.log("🚀 ~ file: FacebookPosts.jsx ~ line 24 ~ useEffect ~ Papa", Papa)
-        Papa.parse(csvFilePath, {
-            header: false,
-            dynamicTyping: false,
-            complete: updateData
-        });
-    }, []);
-
-    const updateData = (result) => {
-        console.log("🚀 ~ file: FacebookPosts.jsx ~ line 35 ~ updateData ~ result", result)
-        const data = result.data;
-        console.log(data);
-    }
-
-    const data = [
-        {
-            Angry: 2,
-            Comments: 2,
-            Haha: 2,
-            Likes: 36,
-            Love: 2,
-            Shares: 3,
-            Wow: 4,
-            PageName: "Pakistan Motorways Police"
-        },
-        {
-            Angry: 2,
-            Comments: 2,
-            Haha: 2,
-            Likes: 16,
-            Love: 2,
-            Shares: 3,
-            Wow: 4,
-            PageName: "The City School E-11 Campus"
+        if (jsonData && jsonData.length > 0) {
+            setData(formateData(jsonData));
         }
-    ];
+    }, [jsonData]);
 
+    // console.log("🚀 ~ file: FacebookPosts.jsx ~ line 54 ~ FacebookPosts ~ data", data)
     return (
         <div className={classes.fbPosts}>
             <h1>Facebook Post showed by industory</h1>
-            <NivoBarChart data={data} />
+            <label className="file-upload">
+                <input type="file" onChange={onFileChange} />
+                <button onClick={updateChart}>Update</button>
+            </label>
+            {data.length > 0 && <NivoBarChart data={data} />}
         </div>
     )
 }
