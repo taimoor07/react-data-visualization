@@ -10,11 +10,13 @@ export const formateData = (array) => {
         if (b.PageName === a.PageName) {
             return {
                 PageName: a.PageName,
-                Angry: a.Angry + b.Angry,
+                Shares: a.Shares + b.Shares,
+                Likes: a.Likes + b.Likes,
                 Comments: a.Comments + b.Comments,
                 Haha: a.Haha + b.Haha,
-                Likes: a.Likes + b.Likes,
-                Love: a.Love + b.Love
+                Love: a.Love + b.Love,
+                Wow: a.Wow + b.Wow,
+                Angry: a.Angry + b.Angry
             }
         }
         return a;
@@ -23,11 +25,13 @@ export const formateData = (array) => {
     let formatedArray = [];
     uniArray.forEach(uniItem => {
         let iniValue = {
-            Angry: 0,
+            Shares: 0,
+            Likes: 0,
             Comments: 0,
             Haha: 0,
-            Likes: 0,
             Love: 0,
+            Wow: 0,
+            Angry: 0,
             PageName: uniItem
         }
 

@@ -6,9 +6,9 @@ function App() {
   return (
     <div className="app">
       <Header />
-      <Container maxWidth="md">
-        <FacebookPosts />
-      </Container>
+      {/* <Container maxWidth="md"> */}
+      <FacebookPosts />
+      {/* </Container> */}
     </div>
   );
 }
