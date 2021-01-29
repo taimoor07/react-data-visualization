@@ -29,7 +29,7 @@ const FacebookPosts = () => {
 
     return (
         <div className={classes.fbPosts}>
-            <h1 className={classes.h1}>Facebook Post - based on industory</h1>
+            <h1 className={classes.h1}>Facebook Posts Data Analysis - Based on industory</h1>
             {dataIndBased.length > 0 && <NivoBarChart
                 data={dataIndBased}
                 keys={keysIndBased}
@@ -39,7 +39,7 @@ const FacebookPosts = () => {
                 width={1500}
             />}
 
-            <h1 className={classes.h1}>Facebook Post - based on posts</h1>
+            <h1 className={classes.h1}>Facebook Posts Data Analysis - Based on posts</h1>
             <div className={classes.ChartWrapper}>
                 {dataPostBased.length > 0 && <NivoBarChart
                     data={dataPostBased}
