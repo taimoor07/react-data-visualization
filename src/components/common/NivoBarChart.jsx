@@ -13,7 +13,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const NivoBarChart = ({ data, keys, indexBy, xLegend, yLegend, width }) => {
-    console.log("🚀 ~ file: NivoBarChart.jsx ~ line 17 ~ NivoBarChart ~ data", data)
     const classes = useStyles();
 
     return (
